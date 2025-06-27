@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Minutes per Mile Calculator</title>
+  <link rel="icon" type="image/png" href="fat.jpeg">
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f0f0f0;
+      padding: 2rem;
+      max-width: 500px;
+      margin: auto;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+    }
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 0.7rem;
+      font-size: 1rem;
+      width: 100%;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .result {
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>Minutes per Mile Calculator</h2>
+  <label for="minutes">Minutes:</label>
+  <input type="number" id="minutes" min="0" placeholder="Enter minutes">
+
+  <label for="seconds">Seconds:</label>
+  <input type="number" id="seconds" min="0" max="59" placeholder="Enter seconds">
+
+  <label for="miles">Miles:</label>
+  <input type="number" id="miles" step="0.1" min="0.1" placeholder="Enter miles">
+
+  <button onclick="calculatePace()">Calculate Pace</button>
+
+  <div class="result" id="paceResult"></div>
+
+  <script>
+    function calculatePace() {
+      const minutes = parseFloat(document.getElementById('minutes').value) || 0;
+      const seconds = parseFloat(document.getElementById('seconds').value) || 0;
+      const miles = parseFloat(document.getElementById('miles').value);
+
+      if (!miles || miles <= 0) {
+        document.getElementById('paceResult').textContent = "Please enter a valid distance.";
+        return;
+      }
+
+      const totalMinutes = minutes + seconds / 60;
+      const pace = totalMinutes / miles;
+      const paceMin = Math.floor(pace);
+      const paceSec = Math.round((pace - paceMin) * 60);
+
+      document.getElementById('paceResult').textContent =
+        `Pace: ${paceMin} min ${paceSec.toString().padStart(2, '0')} sec per mile`;
+    }
+  </script>
+</body>
+</html>
